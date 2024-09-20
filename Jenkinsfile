@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your repository
-                git url: 'https://github.com/INTEROYAL/pipelinejenkins.git', branch: 'main'
+                git url 'https://github.com/INTEROYAL/pipelinejenkins.git', branch: 'main'
             }
         }
         stage('Create S3 Bucket') {
@@ -15,7 +15,6 @@ pipeline {
                     
                     if (bucketExists != 0) {
                         // Create the bucket if it doesn't exist
-                        echo "Creating S3 bucket 'testttting83898'"
                         sh "aws s3api create-bucket --bucket testttting83898 --region us-east-2 --create-bucket-configuration LocationConstraint=us-east-2"
                     } else {
                         echo "Bucket already exists."
