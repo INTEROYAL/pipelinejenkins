@@ -21,15 +21,14 @@ pipeline {
             }
         }
 
-        stage('Deploy to S3') {
-            steps {
-                // Deploy your static website files to the S3 bucket
-                withAWS(credentials: 'aws-jenkins-credentials', region: 'us-east-2') {
-                    s3Upload(bucket: 'testttting83898', file: '**/*') // Upload all files in the repo
-                }
-            }
+     stage('Deploy to S3') {
+    steps {
+        withAWS(credentials: 'your-aws-credentials-id', region: 'us-east-2') {
+            s3Upload(bucket: 'testttting83898', file: 'index7latest.html')
         }
     }
+}
+
 
     post {
         always {
