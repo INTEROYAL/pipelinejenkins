@@ -21,14 +21,14 @@ pipeline {
             }
         }
 
-     stage('Deploy to S3') {
-    steps {
-        withAWS(credentials: 'your-aws-credentials-id', region: 'us-east-2') {
-            s3Upload(bucket: 'testttting83898', file: 'index7latest.html')
+        stage('Deploy to S3') {
+            steps {
+                withAWS(credentials: 'your-aws-credentials-id', region: 'us-east-2') {
+                    s3Upload(bucket: 'testttting83898', file: 'index7latest.html')
+                }
+            }
         }
     }
-}
-
 
     post {
         always {
