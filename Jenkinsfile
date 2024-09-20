@@ -25,8 +25,16 @@ pipeline {
         }
         stage('Deploy to S3') {
             steps {
-                withAWS(region: 'us-east-2', credentials: 'aws-jenkinscredential') {
-                    sh "aws s3 cp /var/jenkins_home/workspace/Projectjenkins2/index7latest.html s3://testttting83898/"
+                withCredentials([usernamePassword(credentialsId: 'aws-jenkinscredential', passwordVariable: 'AWS_SECRET_KEY', usernameVariable: 'AWS_ACCESS_KEY')]) {
+                    script {
+                        // Configure AWS CLI with credentials
+                        sh """
+                        aws configure set aws_access_key_id $AWS_ACCESS_KEY
+                        aws configure set aws_secret_access_key $AWS_SECRET_KEY
+                        aws configure set region us-east-2
+                        aws s3 cp /var/jenkins_home/workspace/Projectjenkins2/index7latest.html s3://testttting83898/
+                        """
+                    }
                 }
             }
         }
