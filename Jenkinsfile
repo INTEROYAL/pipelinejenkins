@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy to S3') {
             steps {
-                withAWS(credentials: 'your-aws-credentials-id', region: 'us-east-2') {
+                withAWS(credentials: 'aws-jenkinscredential', region: 'us-east-2') {
                     sh "aws s3 cp /var/jenkins_home/workspace/pipelineaws1/index7latest.html s3://testttting83898/"
                 }
             }
