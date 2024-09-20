@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your repository
-                git url 'https://github.com/INTEROYAL/pipelinejenkins.git', branch: 'main'
+                git url: 'https://github.com/INTEROYAL/pipelinejenkins.git', branch: 'main'
             }
         }
         stage('Create S3 Bucket') {
