@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Checkout the repository
-                git url: 'https://github.com/INTEROYAL/jenkinsproject.git', branch: 'main'
+                git url: 'https://github.com/INTEROYAL/pipelinejenkins.git', branch: 'main'
             }
         }
 
