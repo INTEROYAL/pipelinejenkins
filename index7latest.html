@@ -2057,7 +2057,7 @@
                     These DevOps practices and tools ensure seamless integration, automation, deployment, delivery, and lifecycle management. <br><br>
                     
                     Devops Plan <br><br>
-                    Repo(Github) > IaC(Terraform, CloudFormation, Ansible) > Pipeline(Jenkins, ADO, Github Actions)> 
+                    Repo(Github) > IaC(Terraform, CloudFormation, Ansible) > Pipeline (Jenkins, ADO, Github Actions)> 
                     SecOps(ADO) > Containerize(Docker, Kub, Ansible) > CD(Argo) > Monitor(Cloudwatch, Prometheus, Grafana)<br><br>
                      
                     (GO SIMPLE SO YOU CAN HAVE A PROTOTYPE, then phase 2 do the more complex) <br><br>
@@ -2073,7 +2073,7 @@
 AWS & ADO summary: Same options of service, must have repo, then if need pipeline must choose either github actions or ado, then deploy from pipeline to either cloud provider, or terraform 
                    *Ideal way is to: vsc > git push > github trigger > pipeline > deploy   
 
- (Best so far) VSC > Gitpush > Github > ADO > deploy 
+ (Best so far) VSC > Gitpush > Github > ADO >  deploy 
                               
                     3) (IaC) Terraform   (complex option) ado, ado pipeline triggers terraform to create the s3 in aws (this appears to be uncessary bc ado or gitact can deploy so why go back to terraform))                                                                   <br><br>
                                                                                                              <br><br>
