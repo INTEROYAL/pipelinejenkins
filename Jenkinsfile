@@ -12,7 +12,7 @@ pipeline {
             steps {
                 dir('terraform') {
                     // Use withAWS to specify credentials for AWS
-                    withAWS(credentials: 'aws-jenkins-credential') {
+                    withAWS(credentials: 'aws-jenkinscredential') {
                         sh 'terraform init'
                     }
                 }
@@ -22,7 +22,7 @@ pipeline {
         stage('Plan Terraform') {
             steps {
                 dir('terraform') {
-                    withAWS(credentials: 'aws-jenkins-credential') {
+                    withAWS(credentials: 'aws-jenkinscredential') {
                         sh 'terraform plan -out=tfplan'
                     }
                 }
@@ -32,7 +32,7 @@ pipeline {
         stage('Apply Terraform') {
             steps {
                 dir('terraform') {
-                    withAWS(credentials: 'aws-jenkins-credential') {
+                    withAWS(credentials: 'aws-jenkinscredential') {
                         sh 'terraform apply tfplan'
                     }
                 }
