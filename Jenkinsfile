@@ -4,6 +4,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('aws-jenkinscredential')   // Use your Jenkins credential ID here
         AWS_SECRET_ACCESS_KEY = credentials('aws-jenkinscredential') // Reuse the same credential ID if it includes both
+        DOMAIN_NAME = 'terracloudrlm.com' // Define your domain name variable here
     }
 
     stages {
