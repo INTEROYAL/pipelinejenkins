@@ -8,38 +8,35 @@ pipeline {
             }
         }
 
-       
-        stage('Destroy Terraform Resources') {
+        stage('Initialize Terraform') {
             steps {
-                script {
-                    dir('terraform') {  // Navigate to your terraform directory
-                        withAWS(credentials: 'aws-credentials') { // Replace with your actual AWS credentials
-                            sh 'terraform init'  // Initialize Terraform
-                            sh 'terraform destroy -auto-approve'  // Destroy resources without prompting for confirmation
-                        }
+                dir('terraform') {
+                    // Use withAWS to specify credentials for AWS
+                    withAWS(credentials: 'aws-jenkins-credential') {
+                        sh 'terraform init'
                     }
                 }
             }
         }
-        
-        stage('Refresh Terraform State') {
-            steps {
-                script {
-                    dir('terraform') {  // Navigate to your terraform directory
-                        withAWS(credentials: 'aws-credentials') { // Replace with your actual AWS credentials
-                            sh 'terraform init'  // Reinitialize Terraform (if necessary)
-                            sh 'terraform refresh'  // Refresh the state to match real resources
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    post {
-        always {
-            // Actions to perform after pipeline execution, like cleanup or notifications
-            echo 'Pipeline completed.'
+        stage('Plan Terraform') {
+            steps {
+                dir('terraform') {
+                    withAWS(credentials: 'aws-jenkins-credential') {
+                        sh 'terraform plan -out=tfplan'
+                    }
+                }
+            }
+        }
+
+        stage('Apply Terraform') {
+            steps {
+                dir('terraform') {
+                    withAWS(credentials: 'aws-jenkins-credential') {
+                        sh 'terraform apply tfplan'
+                    }
+                }
+            }
         }
     }
 }
