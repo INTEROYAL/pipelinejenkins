@@ -5,13 +5,15 @@ pipeline {
         AWS_CREDENTIALS = credentials('aws-jenkinscredential') // Using the stored credentials
     }
 
-    stages {
-        stage('Clone Repository') {
-            steps {
-                // Clone your repository containing Terraform scripts and HTML files
-                git 'https://github.com/INTEROYAL/pipelinejenkins'
-            }
+  stages {
+    stage('Clone Repository') {
+        steps {
+            // Clone your repository containing Terraform scripts and HTML files from the main branch
+            git branch: 'main', url: 'https://github.com/INTEROYAL/pipelinejenkins'
         }
+    }
+}
+
 
         stage('Initialize Terraform') {
             steps {
