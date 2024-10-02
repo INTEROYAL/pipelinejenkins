@@ -30,7 +30,8 @@ pipeline {
                 script {
                     // Change to the terraform directory and plan the Terraform changes
                     dir('terraform') {
-                        sh 'terraform plan'  // Removed domain_name variable
+                        // Save the plan to a file
+                        sh 'terraform plan -out=tfplan'
                     }
                 }
             }
@@ -41,7 +42,8 @@ pipeline {
                 script {
                     // Change to the terraform directory and apply the Terraform changes
                     dir('terraform') {
-                        sh 'terraform apply -auto-approve'  // Removed domain_name variable
+                        // Apply the saved plan
+                        sh 'terraform apply -auto-approve tfplan'
                     }
                 }
             }
@@ -54,6 +56,11 @@ pipeline {
         }
         failure {
             echo 'Deployment failed!'
+            // Capture logs for further debugging
+            dir('terraform') {
+                sh 'terraform apply -auto-approve tfplan || true'  // Attempt to output any logs even if the apply fails
+                echo 'Check Terraform logs for more details.'
+            }
         }
     }
 }
