@@ -17,8 +17,10 @@ pipeline {
         stage('Initialize Terraform') {
             steps {
                 script {
-                    // Initialize Terraform
-                    sh 'terraform init'
+                    // Change to the terraform directory and initialize Terraform
+                    dir('terraform') {
+                        sh 'terraform init'
+                    }
                 }
             }
         }
@@ -26,8 +28,10 @@ pipeline {
         stage('Plan Terraform') {
             steps {
                 script {
-                    // Plan the Terraform changes
-                    sh 'terraform plan -var="domain_name=terracloudrlm.com"'
+                    // Change to the terraform directory and plan the Terraform changes
+                    dir('terraform') {
+                        sh 'terraform plan -var="domain_name=terracloudrlm.com"'
+                    }
                 }
             }
         }
@@ -35,8 +39,10 @@ pipeline {
         stage('Apply Terraform') {
             steps {
                 script {
-                    // Apply the Terraform changes
-                    sh 'terraform apply -auto-approve -var="domain_name=terracloudrlm.com"'
+                    // Change to the terraform directory and apply the Terraform changes
+                    dir('terraform') {
+                        sh 'terraform apply -auto-approve -var="domain_name=terracloudrlm.com"'
+                    }
                 }
             }
         }
