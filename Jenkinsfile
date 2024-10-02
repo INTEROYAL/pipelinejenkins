@@ -8,35 +8,38 @@ pipeline {
             }
         }
 
-        stage('Initialize Terraform') {
+       
+        stage('Destroy Terraform Resources') {
             steps {
-                dir('terraform') {
-                    // Use withAWS to specify credentials for AWS
-                    withAWS(credentials: 'aws-jenkinscredential') {
-                        sh 'terraform init'
+                script {
+                    dir('terraform') {  // Navigate to your terraform directory
+                        withAWS(credentials: 'aws-credentials') { // Replace with your actual AWS credentials
+                            sh 'terraform init'  // Initialize Terraform
+                            sh 'terraform destroy -auto-approve'  // Destroy resources without prompting for confirmation
+                        }
                     }
                 }
             }
         }
-
-        stage('Plan Terraform') {
+        
+        stage('Refresh Terraform State') {
             steps {
-                dir('terraform') {
-                    withAWS(credentials: 'aws-jenkinscredential') {
-                        sh 'terraform plan -out=tfplan'
+                script {
+                    dir('terraform') {  // Navigate to your terraform directory
+                        withAWS(credentials: 'aws-credentials') { // Replace with your actual AWS credentials
+                            sh 'terraform init'  // Reinitialize Terraform (if necessary)
+                            sh 'terraform refresh'  // Refresh the state to match real resources
+                        }
                     }
                 }
             }
         }
+    }
 
-        stage('Apply Terraform') {
-            steps {
-                dir('terraform') {
-                    withAWS(credentials: 'aws-jenkinscredential') {
-                        sh 'terraform apply tfplan'
-                    }
-                }
-            }
+    post {
+        always {
+            // Actions to perform after pipeline execution, like cleanup or notifications
+            echo 'Pipeline completed.'
         }
     }
 }
