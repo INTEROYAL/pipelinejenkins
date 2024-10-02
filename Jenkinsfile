@@ -1,7 +1,10 @@
-
-
 pipeline {
     agent any 
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('aws-jenkinscredential')   // Use your Jenkins credential ID here
+        AWS_SECRET_ACCESS_KEY = credentials('aws-jenkinscredential') // Reuse the same credential ID if it includes both
+    }
 
     stages {
         stage('Clone Repository') {
@@ -15,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Initialize Terraform
-                    terraform init()
+                    sh 'terraform init'
                 }
             }
         }
@@ -24,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Plan the Terraform changes
-                    terraform plan("-var", "domain_name=terracloudrlm.com")
+                    sh 'terraform plan -var="domain_name=terracloudrlm.com"'
                 }
             }
         }
@@ -33,7 +36,7 @@ pipeline {
             steps {
                 script {
                     // Apply the Terraform changes
-                    terraform apply("-auto-approve", "-var", "domain_name=terracloudrlm.com")
+                    sh 'terraform apply -auto-approve -var="domain_name=terracloudrlm.com"'
                 }
             }
         }
