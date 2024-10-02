@@ -11,7 +11,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   enabled             = true
-  default_root_object = "index7latest.html"
+  default_root_object = "website/index7latest.html"
 
   aliases = ["terracloudrlm.com"]
 
