@@ -7,7 +7,7 @@ resource "aws_s3_bucket_website_configuration" "site" {
   bucket = aws_s3_bucket.bucket.id
 
   index_document {
-    suffix = "website/index7latest.html"
+    suffix = "index7latest.html"
   }
 
   /*error_document {
