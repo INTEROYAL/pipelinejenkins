@@ -48,5 +48,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     minimum_protocol_version       = "TLSv1.2_2021"
     cloudfront_default_certificate = false
   }
+}
 
+# Cache Invalidation
+resource "aws_cloudfront_cache_invalidation" "invalidate" {
+  distribution_id = aws_cloudfront_distribution.s3_distribution.id
+
+  paths = [
+    "/*",  # This will invalidate the entire cache. Adjust as needed.
+  ]
 }
