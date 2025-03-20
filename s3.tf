@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket        = "cloudfroterrasv1616"
+  bucket        = "cloudfroterrasv1677"
   force_destroy = true
 }
 
